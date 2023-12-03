@@ -11,7 +11,7 @@ function SignUp() {
   const [name, setName] = useState('');
   const [profileUrl, setProfileUrl] = useState('');
   const navigate = useNavigate();
-  const { checkAuthUser, user,setUser } = useUserContext();
+  const { checkAuthUser, user,setUser,StoreUserData } = useUserContext();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -76,8 +76,10 @@ function SignUp() {
         bio: bio,
         name: name
       }
-      await checkAuthUser()
+      const checked=await checkAuthUser(userData)
+      console.log('checkAuthuser :',checked)
       const isLoggedin = setUser(userData);
+      StoreUserData(userData)
       console.log('signup : ', user);
       if (!isLoggedin) {
         navigate('/sign-in');

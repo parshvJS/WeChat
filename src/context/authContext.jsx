@@ -28,15 +28,16 @@ const AuthProvier = ({ children }) => {
     const [firstData, SetfirstData] = useState({})
     const [secondData, SetSecondData] = useState({})
     // fill userdata and return status in the form of true and false
-    const checkAuthUser =  async () => {
+    const checkAuthUser = async () => {
         const userData = await getCurrentUser();
-       
         setIsAuthanticated(true);
         return true;
 
     };
 
-
+    const StoreUserData=(user)=>{
+        localStorage.setItem('user', JSON.stringify(user))
+    }
 
 
 
@@ -44,8 +45,19 @@ const AuthProvier = ({ children }) => {
 
     // when the website is opened, it checks if the user is logged in or not
     useEffect(() => {
-        const cookieFallBack = localStorage.getItem('cookieFallBack');
-        if (!cookieFallBack) {
+        // const cookieFallback = localStorage.getItem("cookieFallback");
+        // if (
+        //     cookieFallback === "[]" ||
+        //     cookieFallback === null ||
+        //     cookieFallback === undefined
+        // ) {
+        //     navigate("/login");
+        // }
+        const cookieFallback = localStorage.getItem('user');
+        if (cookieFallback === '[]' ||
+            cookieFallback === null ||
+            cookieFallback === undefined
+        ) {
             navigate('/sign-in');
         }
         else {
@@ -61,6 +73,7 @@ const AuthProvier = ({ children }) => {
         isAuthanticated,
         setIsAuthanticated,
         checkAuthUser,
+        StoreUserData
     };
 
     return (

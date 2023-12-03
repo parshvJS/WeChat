@@ -5,9 +5,9 @@ import Home from '../main/Home';
 import { useUserContext } from '../context/authContext';
 
 const AuthLayout = () => {
-
     const {isAuthanticated} = useUserContext();
-    if (isAuthanticated === false) {
+    console.log(isAuthanticated)
+    if (!isAuthanticated) {
         return (
             <Navigate to='/' />
         )
